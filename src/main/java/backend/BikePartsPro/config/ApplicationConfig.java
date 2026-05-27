@@ -1,8 +1,6 @@
 package backend.BikePartsPro.config;
 
-
-import com.cohorte11.primerProyecto.repository.UsuarioRepository;
-
+import backend.BikePartsPro.repository.UsuarioRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

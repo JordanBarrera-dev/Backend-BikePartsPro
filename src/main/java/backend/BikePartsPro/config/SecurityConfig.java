@@ -1,6 +1,6 @@
 package backend.BikePartsPro.config;
 
-import com.cohorte11.primerProyecto.security.JwtFilter;
+import backend.BikePartsPro.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
