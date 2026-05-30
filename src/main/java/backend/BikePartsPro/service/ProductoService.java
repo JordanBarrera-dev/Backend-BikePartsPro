@@ -52,6 +52,11 @@ public class ProductoService {
         existente.setNombre(datos.getNombre());
         existente.setPrecio(datos.getPrecio());
         existente.setStock(datos.getStock());
+        if (datos.getStock() == 0) {
+            existente.setActivo(false);
+        } else {
+            existente.setActivo(true);
+        }
         existente.setCategoria(datos.getCategoria());
         return productoRepository.save(existente);
     }

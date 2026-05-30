@@ -18,4 +18,41 @@ public class ImagenProducto {
     @JoinColumn(name = "producto_id")
     private Producto producto;
 
+    public ImagenProducto() {
+    }
+
+    public ImagenProducto(
+            Long id,
+            String url,
+            Producto producto
+    ) {
+        this.id = id;
+        this.url = url;
+        this.producto = producto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
 }

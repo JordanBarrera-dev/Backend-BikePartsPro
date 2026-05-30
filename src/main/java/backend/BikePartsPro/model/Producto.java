@@ -26,6 +26,9 @@ public class Producto {
     @Column(nullable = false)
     private Integer stock;
 
+    @Column(nullable = false)
+    private Boolean activo = true;
+
     @ManyToOne
     @JoinColumn(name = "modelo_producto_id")
     private ModeloProducto modeloProducto;
@@ -48,6 +51,7 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+        this.activo = stock > 0;
         this.categoria = categoria;
     }
 
@@ -77,6 +81,14 @@ public class Producto {
 
     public Integer getStock() {
         return stock;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     public ModeloProducto getModeloProducto() {

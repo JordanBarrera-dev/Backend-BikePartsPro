@@ -29,4 +29,60 @@ public class ModeloProducto {
     @JoinColumn(name = "marca_id")
     private Marca marca;
 
+    public ModeloProducto() {
+    }
+
+    public ModeloProducto(
+            Long id,
+            String sku,
+            String nombre,
+            String descripcion,
+            Marca marca
+    ) {
+        this.id = id;
+        this.sku = sku;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.marca = marca;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
 }
