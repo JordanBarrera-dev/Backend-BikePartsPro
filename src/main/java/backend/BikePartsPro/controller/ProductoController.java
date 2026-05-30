@@ -1,6 +1,5 @@
 package backend.BikePartsPro.controller;
 
-
 import backend.BikePartsPro.model.Producto;
 import backend.BikePartsPro.service.ProductoService;
 import jakarta.validation.Valid;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import backend.BikePartsPro.model.CategoriaProducto;
 
 import java.util.List;
 
@@ -37,6 +37,26 @@ public class ProductoController {
         Producto producto = productoService.findById(id);
         if (producto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(producto);
+    }
+
+    @GetMapping("/categoria/{categoria}")
+    public ResponseEntity<List<Producto>>
+    buscarPorCategoria(
+            @PathVariable CategoriaProducto categoria) {
+
+        return ResponseEntity.ok(
+                productoService.findByCategoria(categoria)
+        );
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Producto>>
+    buscarPorPalabra(
+            @RequestParam String palabra) {
+
+        return ResponseEntity.ok(
+                productoService.buscarPorPalabra(palabra)
+        );
     }
 
     @PostMapping

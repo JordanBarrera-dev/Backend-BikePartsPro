@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name="productos")
@@ -33,7 +34,7 @@ public class Producto {
             mappedBy = "producto",
             cascade = CascadeType.ALL
     )
-    private list<ImagenProducto> imagenes;
+    private List<ImagenProducto> imagenes;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

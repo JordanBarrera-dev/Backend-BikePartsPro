@@ -1,11 +1,10 @@
 package backend.BikePartsPro.service;
 
-
-
 import backend.BikePartsPro.model.Producto;
 import backend.BikePartsPro.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import backend.BikePartsPro.model.CategoriaProducto;
 
 import java.util.List;
 
@@ -21,6 +20,22 @@ public class ProductoService {
 
     public List<Producto> findAll() {
         return productoRepository.findAll();
+    }
+
+    public List<Producto>
+    findByCategoria(CategoriaProducto categoria){
+
+        return productoRepository
+                .findByCategoria(categoria);
+    }
+
+    public List<Producto>
+    buscarPorPalabra(String palabra){
+
+        return productoRepository
+                .findByModeloProductoNombreContainingIgnoreCase(
+                        palabra
+                );
     }
 
     public Producto findById(Long id){
