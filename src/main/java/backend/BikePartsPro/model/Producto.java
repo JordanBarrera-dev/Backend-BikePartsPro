@@ -25,6 +25,16 @@ public class Producto {
     @Column(nullable = false)
     private Integer stock;
 
+    @ManyToOne
+    @JoinColumn(name = "modelo_producto_id")
+    private ModeloProducto modeloProducto;
+
+    @OneToMany(
+            mappedBy = "producto",
+            cascade = CascadeType.ALL
+    )
+    private list<ImagenProducto> imagenes;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CategoriaProducto categoria;
@@ -66,6 +76,14 @@ public class Producto {
 
     public Integer getStock() {
         return stock;
+    }
+
+    public ModeloProducto getModeloProducto() {
+        return modeloProducto;
+    }
+
+    public void setModeloProducto(ModeloProducto modeloProducto) {
+        this.modeloProducto = modeloProducto;
     }
 
     public void setStock(Integer stock) {
