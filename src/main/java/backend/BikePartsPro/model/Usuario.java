@@ -28,6 +28,9 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(length = 20)
+    private String telefono;
+
     // El rol determina qué endpoints puede acceder este usuario.
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -90,6 +93,13 @@ public class Usuario implements UserDetails {
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
     public String getNombre() { return nombre; }
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public Rol getRol() { return rol; }
     public void setRol(Rol rol) { this.rol = rol; }

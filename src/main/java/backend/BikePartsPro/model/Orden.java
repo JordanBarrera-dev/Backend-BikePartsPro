@@ -30,6 +30,13 @@ public class Orden {
     @OneToMany(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrdenItem> items = new ArrayList<>();
 
+    @OneToOne(
+            cascade = CascadeType.ALL
+    )
+
+    @JoinColumn(name = "envio_id")
+    private Envio envio;
+
     public Orden() {}
 
     public Orden(LocalDateTime fecha, EstadoOrden estado, Cliente cliente) {
@@ -51,4 +58,12 @@ public class Orden {
 
     public List<OrdenItem> getItems() { return items; }
     public void setItems(List<OrdenItem> items) { this.items = items; }
+
+    public Envio getEnvio() {
+        return envio;
+    }
+
+    public void setEnvio(Envio envio) {
+        this.envio = envio;
+    }
 }
