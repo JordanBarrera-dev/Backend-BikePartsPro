@@ -1,6 +1,8 @@
 package backend.BikePartsPro.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "modelos_producto")
@@ -11,6 +13,9 @@ public class ModeloProducto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(min = 6, max = 6,
+            message = "El SKU debe tener exactamente 6 caracteres")
     @Column(nullable = false, unique = true, length = 6)
     private String sku;
 
