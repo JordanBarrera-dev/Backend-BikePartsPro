@@ -1,8 +1,9 @@
 package backend.BikePartsPro.model;
 
 public enum CategoriaProducto {
-    ELECTRONICA,
-    ROPA,
-    ALIMENTOS,
-    HOGAR
+    TRANSMISION,
+    FRENOS,
+    DIRECCION,
+    RUEDAS,
+    ESTRUCTURA
 }

@@ -10,72 +10,85 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
-// @EnableWebSecurity: activa el módulo de seguridad web de Spring Security.
-// Esta clase define el SecurityFilterChain: las reglas que determinan
-// qué solicitudes pasan y cuáles se bloquean, y con qué condiciones.
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final CorsConfigurationSource corsConfigurationSource;
 
     public SecurityConfig(JwtFilter jwtFilter,
-                          AuthenticationProvider authenticationProvider) {
+                          AuthenticationProvider authenticationProvider,
+                          CorsConfigurationSource corsConfigurationSource) {
         this.jwtFilter = jwtFilter;
         this.authenticationProvider = authenticationProvider;
+        this.corsConfigurationSource = corsConfigurationSource;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-    .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configure(http))
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.configurationSource(corsConfigurationSource))
+            .sessionManagement(session ->
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .authorizeHttpRequests(auth -> auth
+            .authorizeHttpRequests(auth -> auth
 
-                        // Swagger: público
-                        .requestMatchers(
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/swagger-ui.html"
-                        ).permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Auth público — DEBE ir antes que cualquier regla específica de /auth/**
-                        .requestMatchers("/auth/register", "/auth/login").permitAll()
+                    .requestMatchers(
+                            "/swagger-ui/**",
+                            "/v3/api-docs/**",
+                            "/swagger-ui.html"
+                    ).permitAll()
 
-                        // Promover: solo ADMIN
-                        .requestMatchers(HttpMethod.PUT, "/auth/promover/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST,
+                            "/auth/register",
+                            "/auth/login",
+                            "/auth/verificar-registro",
+                            "/auth/reenviar-codigo"
+                    ).permitAll()
 
-                        // GET: CLIENTE y ADMIN
-                        .requestMatchers(HttpMethod.GET, "/productos/**").hasAnyRole("ADMIN", "CLIENTE")
-                        .requestMatchers(HttpMethod.GET, "/clientes/**").hasAnyRole("ADMIN", "CLIENTE")
-                        .requestMatchers(HttpMethod.GET, "/ordenes/**").hasAnyRole("ADMIN", "CLIENTE")
+                    .requestMatchers(HttpMethod.PUT, "/auth/promover/**").hasRole("ADMIN")
 
-                        // Solo ADMIN
-                        .requestMatchers(HttpMethod.POST, "/productos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/productos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/productos/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/clientes/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/clientes/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/clientes/**").hasAnyRole("ADMIN", "CLIENTE")
+                    .requestMatchers(HttpMethod.GET, "/ordenes/**").hasAnyRole("ADMIN", "CLIENTE")
 
-                        // Órdenes
-                        .requestMatchers(HttpMethod.POST, "/ordenes/**").hasAnyRole("ADMIN", "CLIENTE")
+                    .requestMatchers(HttpMethod.POST, "/productos/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/productos/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/productos/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/clientes/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/clientes/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
 
-                        .anyRequest().authenticated()
-                )
+                    .requestMatchers(HttpMethod.POST, "/ordenes/**").hasAnyRole("ADMIN", "CLIENTE")
 
-                // Registrar el AuthenticationProvider que usa la BD.
-                .authenticationProvider(authenticationProvider)
+                    .requestMatchers(HttpMethod.GET, "/envios/**").hasAnyRole("ADMIN", "CLIENTE")
+                    .requestMatchers(HttpMethod.POST, "/envios/**").hasAnyRole("ADMIN", "CLIENTE")
+                    .requestMatchers(HttpMethod.PUT, "/envios/**").hasAnyRole("ADMIN", "CLIENTE")
+                    .requestMatchers(HttpMethod.DELETE, "/envios/**").hasRole("ADMIN")
 
-                // Insertar JwtFilter antes del filtro estándar de usuario/contraseña.
-                // Así, cada solicitud primero pasa por la validación del token JWT.
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                    .requestMatchers(HttpMethod.GET, "/departamentos/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/departamentos/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/departamentos/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/departamentos/**").hasRole("ADMIN")
+
+                    .requestMatchers(HttpMethod.GET, "/ciudades/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/ciudades/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/ciudades/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/ciudades/**").hasRole("ADMIN")
+
+                    .anyRequest().authenticated()
+            )
+
+            .authenticationProvider(authenticationProvider)
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

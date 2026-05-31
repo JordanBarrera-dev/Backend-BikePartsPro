@@ -29,13 +29,8 @@ public class ProductoService {
                 .findByCategoria(categoria);
     }
 
-    public List<Producto>
-    buscarPorPalabra(String palabra){
-
-        return productoRepository
-                .findByModeloProductoNombreContainingIgnoreCase(
-                        palabra
-                );
+    public List<Producto> buscarPorPalabra(String palabra) {
+        return productoRepository.buscarFiltrado(null, toPatron(palabra));
     }
 
     public Producto findById(Long id){
@@ -59,6 +54,14 @@ public class ProductoService {
         }
         existente.setCategoria(datos.getCategoria());
         return productoRepository.save(existente);
+    }
+
+    public List<Producto> buscarFiltrado(CategoriaProducto categoria, String palabra) {
+        return productoRepository.buscarFiltrado(categoria, toPatron(palabra));
+    }
+
+    private String toPatron(String palabra) {
+        return "%" + (palabra == null ? "" : palabra.toLowerCase()) + "%";
     }
 
     public void delete(Long id){

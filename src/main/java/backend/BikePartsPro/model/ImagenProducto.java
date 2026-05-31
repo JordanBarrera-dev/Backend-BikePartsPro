@@ -1,5 +1,6 @@
 package backend.BikePartsPro.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,7 @@ public class ImagenProducto {
     @Column(nullable = false,length = 1000)
     private String url;
 
+    @JsonBackReference("producto-imagenes")
     @ManyToOne
     @JoinColumn(name = "producto_id")
     private Producto producto;

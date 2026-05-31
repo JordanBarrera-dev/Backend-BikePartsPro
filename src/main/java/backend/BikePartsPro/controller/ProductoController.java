@@ -50,13 +50,15 @@ public class ProductoController {
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<Producto>>
-    buscarPorPalabra(
-            @RequestParam String palabra) {
+    public ResponseEntity<List<Producto>> buscarPorPalabra(@RequestParam String palabra) {
+        return ResponseEntity.ok(productoService.buscarPorPalabra(palabra));
+    }
 
-        return ResponseEntity.ok(
-                productoService.buscarPorPalabra(palabra)
-        );
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<Producto>> buscarFiltrado(
+            @RequestParam(required = false) CategoriaProducto categoria,
+            @RequestParam(required = false) String palabra) {
+        return ResponseEntity.ok(productoService.buscarFiltrado(categoria, palabra));
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package backend.BikePartsPro.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +34,7 @@ public class Producto {
     @JoinColumn(name = "modelo_producto_id")
     private ModeloProducto modeloProducto;
 
+    @JsonManagedReference("producto-imagenes")
     @OneToMany(
             mappedBy = "producto",
             cascade = CascadeType.ALL
@@ -101,6 +103,14 @@ public class Producto {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public List<ImagenProducto> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<ImagenProducto> imagenes) {
+        this.imagenes = imagenes;
     }
 
     public CategoriaProducto getCategoria() {

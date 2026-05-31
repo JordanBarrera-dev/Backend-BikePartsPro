@@ -1,5 +1,6 @@
 package backend.BikePartsPro.security;
 
+import backend.BikePartsPro.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -27,28 +28,29 @@ public class JwtUtil {
     // y genera un JWT firmado con los datos del usuario.
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("rol", userDetails.getAuthorities().iterator().next().getAuthority());
 
-        // Incluimos el rol en el payload del token para no tener que
-        // consultar la base de datos en cada solicitud.
-        claims.put("rol", userDetails.getAuthorities()
-                .iterator().next().getAuthority());
+        if (userDetails instanceof Usuario usuario) {
+            String[] partes = usuario.getNombre().trim().split("\\s+");
+            claims.put("nombre", partes[0]);
+        }
 
         return Jwts.builder()
                 .claims(claims)
-                // sub (subject): identificador del usuario — usamos el email.
                 .subject(userDetails.getUsername())
-                // iat (issued at): fecha de creación del token.
                 .issuedAt(new Date())
-                // exp (expiration): fecha de vencimiento.
                 .expiration(new Date(System.currentTimeMillis() + expiration))
-                // Firma el token con la clave secreta usando HMAC-SHA256.
                 .signWith(getSigningKey())
                 .compact();
     }
 
-    // extractEmail: lee el campo "sub" del payload del token.
     public String extractEmail(String token) {
         return extractClaims(token).getSubject();
+    }
+
+    public String extractNombre(String token) {
+        Object nombre = extractClaims(token).get("nombre");
+        return nombre != null ? nombre.toString() : null;
     }
 
     // isTokenValid: verifica dos cosas:

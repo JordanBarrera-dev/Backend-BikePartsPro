@@ -1,0 +1,61 @@
+nombre,precio,stock,activo,modelo_producto_id,categoria
+Cassette Shimano Deore XT M8100 11-46T 12v,85000,200,true,1,TRANSMISION
+Cadena Shimano Deore XT M8100 12 velocidades,45000,350,true,1,TRANSMISION
+Cambio trasero Shimano Deore XT M8100 12v Shadow+,120000,150,true,1,TRANSMISION
+Cassette Shimano XTR M9100 10-51T 12v,280000,80,true,2,TRANSMISION
+Cadena Shimano XTR M9100 12 velocidades,95000,120,true,2,TRANSMISION
+Cambio trasero Shimano XTR M9100 Shadow+ 12v,450000,60,true,2,TRANSMISION
+Cassette Shimano Deore M6100 10-51T 12v,55000,300,true,3,TRANSMISION
+Manivela Shimano Deore M6100 175mm 30T,95000,180,true,3,TRANSMISION
+Cassette SRAM GX Eagle 10-52T 12 velocidades,120000,150,true,4,TRANSMISION
+Cadena SRAM GX Eagle 12 velocidades,65000,200,true,4,TRANSMISION
+Cambio trasero SRAM GX Eagle Cage Lock,185000,100,true,4,TRANSMISION
+Cassette SRAM XX1 Eagle 10-52T 12v Carbon,380000,50,true,5,TRANSMISION
+Cadena SRAM XX1 Eagle 12 velocidades,110000,70,true,5,TRANSMISION
+Cassette Campagnolo Chorus 11-32T 12 velocidades,220000,60,true,6,TRANSMISION
+Cadena Campagnolo Chorus 12 velocidades,75000,90,true,6,TRANSMISION
+Cassette Shimano SLX M7100 10-51T 12v,70000,250,true,7,TRANSMISION
+Cadena Shimano SLX M7100 12 velocidades,40000,400,true,7,TRANSMISION
+Manivela Shimano SLX M7100 175mm 32T,115000,170,true,7,TRANSMISION
+Cassette SRAM NX Eagle 11-50T 12 velocidades,75000,200,true,8,TRANSMISION
+Cadena SRAM NX Eagle 12 velocidades,45000,300,true,8,TRANSMISION
+Freno de disco hidraulico Shimano XT BR-M8100 delantero,130000,120,true,9,FRENOS
+Pastillas de freno Shimano XT SM-S70T organicas,28000,500,true,9,FRENOS
+Freno de disco hidraulico Shimano XTR BR-M9100 delantero,380000,40,true,10,FRENOS
+Pastillas de freno Shimano XTR M9100 metalicas,48000,150,true,10,FRENOS
+Freno hidraulico SRAM Code RSC 4 pistones delantero,280000,60,true,11,FRENOS
+Pastillas de freno SRAM Code organicas 4 pistones,35000,200,true,11,FRENOS
+Freno hidraulico SRAM Guide RE 2 pistones delantero,165000,90,true,12,FRENOS
+Disco de freno SRAM Centerline 180mm CenterLock,75000,150,true,12,FRENOS
+Freno de disco hidraulico Shimano SLX BR-M7100 delantero,95000,180,true,13,FRENOS
+Pastillas de freno Shimano SLX M7100 metalicas,22000,600,true,13,FRENOS
+Suspension Fox Factory 34 29 pulgadas 130mm GRIP2,950000,30,true,14,DIRECCION
+Suspension Fox Factory 34 29 pulgadas 150mm GRIP2,1050000,25,true,14,DIRECCION
+Suspension RockShox Pike Ultimate 29 pulgadas 130mm,850000,35,true,15,DIRECCION
+Suspension RockShox Pike Select 29 pulgadas 140mm,620000,45,true,15,DIRECCION
+Suspension Fox Float 36 29 pulgadas 160mm GRIP2,1200000,20,true,16,DIRECCION
+Suspension Fox Float 36 27.5 pulgadas 170mm GRIP2,1180000,18,true,16,DIRECCION
+Suspension RockShox Lyrik Ultimate 29 pulgadas 160mm,1100000,22,true,17,DIRECCION
+Suspension RockShox Lyrik Select 27.5 pulgadas 160mm,780000,30,true,17,DIRECCION
+Manubrio Ritchey WCS Carbon 760mm 35mm Flat,185000,80,true,18,DIRECCION
+Potencia Ritchey WCS 4-Axis 90mm 31.8mm,95000,120,true,18,DIRECCION
+Llanta Continental Trail King 29x2.4 Protection BlackChili,95000,200,true,19,RUEDAS
+Llanta Continental Trail King 27.5x2.4 BlackChili,90000,180,true,19,RUEDAS
+Llanta Continental Trail King 29x2.2 Protection,110000,165,true,19,RUEDAS
+Llanta Maxxis Minion DHF 29x2.5 WT EXO TR 3C,110000,150,true,20,RUEDAS
+Llanta Maxxis Minion DHF 27.5x2.5 WT 3C MaxxTerra,125000,130,true,20,RUEDAS
+Llanta Schwalbe Nobby Nic 29x2.35 Evolution Addix Speed,105000,130,true,21,RUEDAS
+Llanta Schwalbe Nobby Nic 27.5x2.35 Addix Performance,100000,140,true,21,RUEDAS
+Llanta Continental Race King 29x2.2 Protection BlackChili,88000,180,true,22,RUEDAS
+Llanta Continental Race King 29x2.0 ProTection BlackChili,82000,200,true,22,RUEDAS
+Llanta Continental Race King 27.5x2.2 ShieldWall,85000,175,true,22,RUEDAS
+Llanta Maxxis Ardent 29x2.4 EXO TR 3C MaxxSpeed,92000,170,true,23,RUEDAS
+Llanta Maxxis Ardent 27.5x2.4 EXO TR MaxxTerra,88000,185,true,23,RUEDAS
+Tija de sillin Ritchey WCS Carbon 31.6x400mm,210000,70,true,24,ESTRUCTURA
+Tija de sillin Ritchey WCS Carbon 27.2x350mm,195000,65,true,24,ESTRUCTURA
+Sillin Fizik Antares R3 Regular rails titanio,185000,90,true,25,ESTRUCTURA
+Sillin Fizik Antares R5 Regular rails manganeso,95000,130,true,25,ESTRUCTURA
+Pedalier Shimano XT M8100 BSA 175mm 32T,185000,80,true,26,ESTRUCTURA
+Eje de pedalier Shimano SM-BB52 BSA 73mm,45000,250,true,26,ESTRUCTURA
+Horquilla rigida RockShox Judy XC Carbon 29 pulgadas 100mm,480000,25,true,27,ESTRUCTURA
+Horquilla suspension RockShox SID Select Carbon 29 pulgadas 120mm,850000,18,true,27,ESTRUCTURA

@@ -1,0 +1,28 @@
+sku,nombre,descripcion,marca_id
+TR0001,Shimano Deore XT M8100,"Grupo de transmisión 12 velocidades de alta gama para MTB. Compatible con cassettes 10-46T y 10-51T. Tecnología HyperGlide+ para cambios suaves bajo carga.",1
+TR0002,Shimano XTR M9100,"Grupo de transmisión de competición 12 velocidades. El tope de gama de Shimano para XC y trail. Peso mínimo y máxima precisión en cada cambio.",1
+TR0003,Shimano Deore M6100,"Transmisión MTB 12 velocidades de nivel entrada-medio. Excelente relación calidad-precio. Totalmente compatible con el ecosistema Shimano.",1
+TR0004,SRAM Eagle GX,"Grupo de transmisión 12 velocidades de gama media-alta. Cassette de rango amplio 10-52T. Ideal para ciclismo de montaña exigente.",2
+TR0005,SRAM Eagle XX1,"El mejor grupo de transmisión de SRAM. 12 velocidades con cassette de carbono 10-52T. Diseñado para competencia de alto rendimiento.",2
+TR0006,Campagnolo Chorus 12v,"Grupo de transmisión italiano de alta gama para ruta. 12 velocidades con tecnología Ultra-Shift. Precisión y elegancia Campagnolo.",3
+TR0007,Shimano SLX M7100,"Grupo MTB 12 velocidades posicionado entre Deore y XT. Excelente desempeño en trail y enduro. Hereda tecnología del XTR.",1
+TR0008,SRAM NX Eagle,"Transmisión MTB 12 velocidades de entrada. Cassette 11-50T con amplio rango. La opción más económica del ecosistema Eagle de SRAM.",2
+FR0001,Shimano Deore XT BR-M8100,"Freno de disco hidráulico de alta gama para MTB. Sistema de 4 pistones para máxima potencia de frenado. Compatible con discos de 180 y 203mm.",1
+FR0002,Shimano XTR BR-M9100,"El freno de disco hidráulico de mayor rendimiento de Shimano. 4 pistones con tecnología Servo-Wave. Modulación y potencia excepcionales.",1
+FR0003,SRAM Code RSC,"Freno de disco hidráulico de 4 pistones para enduro y DH. Tecnología SwingLink para modulación superior. Resistente a las condiciones más extremas.",2
+FR0004,SRAM Guide RE,"Freno de disco hidráulico de 2 pistones para trail. Excelente modulación y potencia. Compatible con discos CenterLock y 6 tornillos.",2
+FR0005,Shimano SLX BR-M7100,"Freno de disco hidráulico MTB de gama media-alta. Hereda tecnología del XT. Ideal para trail y enduro con buena relación calidad-precio.",1
+DI0001,Fox Factory 34,"Horquilla de suspensión delantera de alta gama para MTB 29 pulgadas. Amortiguador GRIP2 con ajuste de compresión y rebote independiente.",4
+DI0002,RockShox Pike,"Horquilla de suspensión para trail y enduro. Disponible en 29 y 27.5 pulgadas. Amortiguador Charger 3 con ajuste fino de compresión.",5
+DI0003,Fox Float 36,"Horquilla de suspensión para enduro y DH. Diseñada para los senderos más agresivos. Mayor rigidez y control gracias a sus tubos de 36mm.",4
+DI0004,RockShox Lyrik,"Horquilla premium para enduro. Eje Boost 110x15mm. Amortiguador Charger 3 con DebonAir+ para máxima sensibilidad y control.",5
+DI0005,Ritchey WCS Componentes,"Línea de componentes de dirección WCS de alta gama. Manubrios y potencias en carbono y aluminio. Para ciclismo de ruta y MTB.",10
+RU0001,Continental Trail King,"Neumático MTB polivalente para trail y all-mountain. Perfil agresivo con buen agarre en todo tipo de terrenos. Disponible en 29 y 27.5 pulgadas.",6
+RU0002,Maxxis Minion DHF,"El neumático de descenso más popular del mundo. Diseño icónico con gran agarre en barro y terreno suelto. Compatible con tubeless.",7
+RU0003,Schwalbe Nobby Nic,"Neumático MTB versátil para trail y cross-country. Tecnología Addix para máximo agarre y durabilidad. Ideal para terrenos mixtos.",8
+RU0004,Continental Race King,"Neumático XC de bajo peso y rodadura eficiente. Perfil semislick central con bloques laterales de agarre. Ideal para competencia XC.",6
+RU0005,Maxxis Ardent,"Neumático trail polivalente con buen equilibrio entre agarre y eficiencia. Disponible en varias anchuras para 29 y 27.5 pulgadas.",7
+ES0001,Ritchey WCS Tija Carbon,"Tija de sillín ultraligera en fibra de carbono. Diámetros 31.6mm y 27.2mm. Reduce vibraciones y mejora el confort en rodaje.",10
+ES0002,Fizik Antares,"Sillín de carreras con perfil plano para ciclistas con posición agresiva. Rails en titanio y manganeso. Cubierta en microtex.",9
+ES0003,Shimano Pedalier XT Serie,"Pedalier hollowtech II para MTB de alta gama. Compatible con BSA 68/73mm. Disponible en 170 y 175mm con diferentes configuraciones de plato.",1
+ES0004,RockShox Judy XC Serie,"Horquilla rígida y de suspensión XC de carbono ultraligera. Diseñada para maximizar la eficiencia en competencia de cross-country.",5
