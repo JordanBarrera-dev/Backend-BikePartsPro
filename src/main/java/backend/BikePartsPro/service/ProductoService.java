@@ -19,14 +19,11 @@ public class ProductoService {
     }
 
     public List<Producto> findAll() {
-        return productoRepository.findAll();
+        return productoRepository.findByStockGreaterThan(0);
     }
 
-    public List<Producto>
-    findByCategoria(CategoriaProducto categoria){
-
-        return productoRepository
-                .findByCategoria(categoria);
+    public List<Producto> findByCategoria(CategoriaProducto categoria) {
+        return productoRepository.findByCategoriaAndStockGreaterThan(categoria, 0);
     }
 
     public List<Producto> buscarPorPalabra(String palabra) {

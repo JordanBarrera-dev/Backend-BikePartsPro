@@ -27,11 +27,6 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.findAll());
     }
 
-    //@GetMapping
-//    public List<Producto> obtenerTodos() {
-//        return productoService.findAll();
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Producto> obtenerPorId(@PathVariable Long id) {
         Producto producto = productoService.findById(id);
@@ -40,13 +35,8 @@ public class ProductoController {
     }
 
     @GetMapping("/categoria/{categoria}")
-    public ResponseEntity<List<Producto>>
-    buscarPorCategoria(
-            @PathVariable CategoriaProducto categoria) {
-
-        return ResponseEntity.ok(
-                productoService.findByCategoria(categoria)
-        );
+    public ResponseEntity<List<Producto>> buscarPorCategoria(@PathVariable CategoriaProducto categoria) {
+        return ResponseEntity.ok(productoService.findByCategoria(categoria));
     }
 
     @GetMapping("/buscar")
@@ -67,8 +57,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Long id,
-                                               @Valid @RequestBody Producto datos) {
+    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @Valid @RequestBody Producto datos) {
         Producto actualizado = productoService.update(id, datos);
         if (actualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(actualizado);
@@ -80,41 +69,3 @@ public class ProductoController {
         return ResponseEntity.noContent().build();
     }
 }
-
-
-//
-//@RestController
-//@RequestMapping("/productos")
-//public class ProductoController {
-//    private final ProductoService productoService;
-//
-//    @Autowired
-//    public ProductoController(ProductoService productoService) {
-//        this.productoService = productoService;
-//    }
-//
-//    @GetMapping
-//    public List<Producto> obtenerTodos() {
-//        return productoService.findAll();
-//    }
-//
-//    @GetMapping("/{id}")
-//    public Producto obtenerPorId(@PathVariable Long id){
-//        return productoService.findById(id);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public Producto actualizar(@PathVariable Long id, @RequestBody Producto datos){
-//        return productoService.update(id, datos);
-//    }
-//
-//    @PostMapping
-//    public Producto crear(@RequestBody Producto producto){
-//        return productoService.save(producto);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public  void eliminar(@PathVariable Long id){
-//        productoService.delete(id);
-//    }
-//}

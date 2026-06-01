@@ -1,8 +1,5 @@
 package backend.BikePartsPro.auth;
 
-// RegisterRequestDTO: los datos que el cliente debe enviar para registrarse.
-// Separar este DTO del modelo Usuario evita exponer campos internos
-// como el id o la contraseña hasheada en la respuesta.
 public class RegisterRequestDTO {
 
     private String nombre;

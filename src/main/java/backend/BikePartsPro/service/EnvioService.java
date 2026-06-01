@@ -7,7 +7,9 @@ import backend.BikePartsPro.model.Envio;
 import backend.BikePartsPro.repository.CiudadRepository;
 import backend.BikePartsPro.repository.ClienteRepository;
 import backend.BikePartsPro.repository.EnvioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -35,34 +37,43 @@ public class EnvioService {
     }
 
     public Envio save(EnvioRequestDTO dto) {
+        Ciudad ciudad = ciudadRepository.findById(dto.getCiudadId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Ciudad no encontrada: " + dto.getCiudadId()));
+
+        Cliente cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Cliente no encontrado: " + dto.getClienteId()));
+
         Envio envio = new Envio();
         envio.setNombreRecibe(dto.getNombreRecibe());
         envio.setDireccion(dto.getDireccion());
         envio.setComplemento(dto.getComplemento());
         envio.setCodigoPostal(dto.getCodigoPostal());
-
-        Ciudad ciudad = ciudadRepository.findById(dto.getCiudadId()).orElse(null);
         envio.setCiudad(ciudad);
-
-        Cliente cliente = clienteRepository.findById(dto.getClienteId()).orElse(null);
         envio.setCliente(cliente);
 
         return envioRepository.save(envio);
     }
 
     public Envio update(Long id, EnvioRequestDTO dto) {
-        Envio existente = envioRepository.findById(id).orElse(null);
-        if (existente == null) return null;
+        Envio existente = envioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Envío no encontrado: " + id));
+
+        Ciudad ciudad = ciudadRepository.findById(dto.getCiudadId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Ciudad no encontrada: " + dto.getCiudadId()));
+
+        Cliente cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Cliente no encontrado: " + dto.getClienteId()));
 
         existente.setNombreRecibe(dto.getNombreRecibe());
         existente.setDireccion(dto.getDireccion());
         existente.setComplemento(dto.getComplemento());
         existente.setCodigoPostal(dto.getCodigoPostal());
-
-        Ciudad ciudad = ciudadRepository.findById(dto.getCiudadId()).orElse(null);
         existente.setCiudad(ciudad);
-
-        Cliente cliente = clienteRepository.findById(dto.getClienteId()).orElse(null);
         existente.setCliente(cliente);
 
         return envioRepository.save(existente);

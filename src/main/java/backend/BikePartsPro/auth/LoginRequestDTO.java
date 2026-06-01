@@ -1,7 +1,6 @@
 package backend.BikePartsPro.auth;
 
 
-// LoginRequestDTO: credenciales que el cliente envía para autenticarse.
 public class LoginRequestDTO {
 
     private String email;

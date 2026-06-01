@@ -39,8 +39,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> actualizar(@PathVariable Long id,
-                                              @Valid @RequestBody Cliente datos) {
+    public ResponseEntity<Cliente> actualizar(@PathVariable Long id, @Valid @RequestBody Cliente datos) {
         Cliente actualizado = clienteService.update(id, datos);
         if (actualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(actualizado);
@@ -52,40 +51,3 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 }
-
-//@RestController
-//@RequestMapping("/clientes")
-//public class ClienteController {
-//
-//    private final ClienteService clienteService;
-//
-//    @Autowired
-//    public ClienteController(ClienteService clienteService) {
-//        this.clienteService = clienteService;
-//    }
-//
-//    @GetMapping
-//    public List<Cliente> obtenerTodos() {
-//        return clienteService.findAll();
-//    }
-//
-//    @GetMapping("/{id}")
-//    public Cliente obtenerPorId(@PathVariable Long id) {
-//        return clienteService.findById(id);
-//    }
-//
-//    @PostMapping
-//    public Cliente crear(@RequestBody Cliente cliente) {
-//        return clienteService.save(cliente);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public Cliente actualizar(@PathVariable Long id, @RequestBody Cliente datos) {
-//        return clienteService.update(id, datos);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public void eliminar(@PathVariable Long id) {
-//        clienteService.delete(id);
-//    }
-//}

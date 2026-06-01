@@ -1,24 +1,25 @@
 package backend.BikePartsPro.DTO;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-import backend.BikePartsPro.model.EstadoOrden;
-
-import java.time.LocalDateTime;
+import java.util.List;
 
 public class OrdenRequestDTO {
 
-    private LocalDateTime fecha;
-    private EstadoOrden estado;
+    @NotNull(message = "El clienteId es obligatorio")
     private Long clienteId;
+
+    @NotEmpty(message = "La orden debe tener al menos un producto")
+    @Valid
+    private List<OrdenItemRequestDTO> items;
 
     public OrdenRequestDTO() {}
 
-    public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
-
-    public EstadoOrden getEstado() { return estado; }
-    public void setEstado(EstadoOrden estado) { this.estado = estado; }
-
     public Long getClienteId() { return clienteId; }
     public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
+
+    public List<OrdenItemRequestDTO> getItems() { return items; }
+    public void setItems(List<OrdenItemRequestDTO> items) { this.items = items; }
 }

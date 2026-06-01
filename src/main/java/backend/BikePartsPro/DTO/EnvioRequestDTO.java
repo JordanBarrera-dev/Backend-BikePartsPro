@@ -1,12 +1,24 @@
 package backend.BikePartsPro.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class EnvioRequestDTO {
 
+    @NotBlank(message = "El nombre de quien recibe es obligatorio")
     private String nombreRecibe;
+
+    @NotBlank(message = "La dirección es obligatoria")
     private String direccion;
+
     private String complemento;
+
     private String codigoPostal;
+
+    @NotNull(message = "La ciudad es obligatoria")
     private Long ciudadId;
+
+    @NotNull(message = "El cliente es obligatorio")
     private Long clienteId;
 
     public EnvioRequestDTO() {}
