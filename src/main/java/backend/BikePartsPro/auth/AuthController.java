@@ -89,10 +89,8 @@ public class AuthController {
             return ResponseEntity.badRequest().body(Map.of("error", "Código incorrecto"));
         }
 
-        if (usuario.getCliente() == null) {
-            Cliente cliente = new Cliente(usuario.getNombre(), usuario.getEmail());
-            usuario.setCliente(cliente);
-        }
+        Cliente cliente = new Cliente(usuario.getNombre(), usuario.getEmail());
+        usuario.setCliente(cliente);
         usuario.setVerificado(true);
         usuario.setTokenRegistro(null);
         usuario.setTokenRegistroExpiracion(null);
@@ -166,23 +164,6 @@ public class AuthController {
         emailService.enviarCodigoVerificacion(email, codigo);
 
         return ResponseEntity.ok(Map.of("mensaje", "Código reenviado al correo"));
-    }
-
-    @PutMapping("/activar/{email}")
-    public ResponseEntity<?> activarCuenta(@PathVariable String email) {
-        Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
-        if (usuario == null) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Usuario no encontrado"));
-        }
-        if (usuario.getCliente() == null) {
-            Cliente cliente = new Cliente(usuario.getNombre(), usuario.getEmail());
-            usuario.setCliente(cliente);
-        }
-        usuario.setVerificado(true);
-        usuario.setTokenRegistro(null);
-        usuario.setTokenRegistroExpiracion(null);
-        usuarioRepository.save(usuario);
-        return ResponseEntity.ok(Map.of("mensaje", "Cuenta activada", "email", email));
     }
 
     @PutMapping("/promover/{email}")
