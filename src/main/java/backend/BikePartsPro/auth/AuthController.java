@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -110,13 +111,17 @@ public class AuthController {
             );
             Usuario usuario = (Usuario) authentication.getPrincipal();
             String token = jwtUtil.generateToken(usuario);
-            return ResponseEntity.ok(Map.of(
-                    "token", token,
-                    "email", usuario.getEmail(),
-                    "rol", usuario.getRol(),
-                    "nombre", jwtUtil.extractNombre(token),
-                    "verificado", usuario.isVerificado()
-            ));
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("email", usuario.getEmail());
+            response.put("rol", usuario.getRol());
+            response.put("nombre", jwtUtil.extractNombre(token));
+            response.put("verificado", usuario.isVerificado());
+            response.put("userId", usuario.getId());
+            if (usuario.getCliente() != null) {
+                response.put("clienteId", usuario.getCliente().getId());
+            }
+            return ResponseEntity.ok(response);
         } catch (DisabledException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("error", "Cuenta no verificada. Revisa tu email para activar tu cuenta."));
@@ -136,13 +141,17 @@ public class AuthController {
     @GetMapping("/validar-token")
     public ResponseEntity<?> validarToken() {
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ResponseEntity.ok(Map.of(
-                "valido", true,
-                "email", usuario.getEmail(),
-                "rol", usuario.getRol(),
-                "nombre", usuario.getNombre().trim().split("\\s+")[0],
-                "verificado", usuario.isVerificado()
-        ));
+        Map<String, Object> response = new HashMap<>();
+        response.put("valido", true);
+        response.put("email", usuario.getEmail());
+        response.put("rol", usuario.getRol());
+        response.put("nombre", usuario.getNombre().trim().split("\\s+")[0]);
+        response.put("verificado", usuario.isVerificado());
+        response.put("userId", usuario.getId());
+        if (usuario.getCliente() != null) {
+            response.put("clienteId", usuario.getCliente().getId());
+        }
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/reenviar-codigo")
