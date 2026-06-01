@@ -1,5 +1,6 @@
 package backend.BikePartsPro.controller;
 
+import backend.BikePartsPro.DTO.ProductoRequestDTO;
 import backend.BikePartsPro.model.Producto;
 import backend.BikePartsPro.service.ProductoService;
 import jakarta.validation.Valid;
@@ -52,8 +53,10 @@ public class ProductoController {
     }
 
     @PostMapping
-    public ResponseEntity<Producto> crear(@Valid @RequestBody Producto producto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto));
+    public ResponseEntity<Producto> crear(@Valid @RequestBody ProductoRequestDTO dto) {
+        Producto creado = productoService.crear(dto);
+        if (creado == null) return ResponseEntity.badRequest().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
     @PutMapping("/{id}")
