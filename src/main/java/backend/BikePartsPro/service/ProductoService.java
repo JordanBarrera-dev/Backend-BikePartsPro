@@ -1,21 +1,28 @@
 package backend.BikePartsPro.service;
 
+import backend.BikePartsPro.DTO.ProductoRequestDTO;
+import backend.BikePartsPro.model.ImagenProducto;
+import backend.BikePartsPro.model.ModeloProducto;
 import backend.BikePartsPro.model.Producto;
+import backend.BikePartsPro.repository.ModeloProductoRepository;
 import backend.BikePartsPro.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import backend.BikePartsPro.model.CategoriaProducto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProductoService {
 
     private final ProductoRepository productoRepository;
+    private final ModeloProductoRepository modeloProductoRepository;
 
     @Autowired
-    public ProductoService(ProductoRepository productoRepository) {
+    public ProductoService(ProductoRepository productoRepository, ModeloProductoRepository modeloProductoRepository) {
         this.productoRepository = productoRepository;
+        this.modeloProductoRepository = modeloProductoRepository;
     }
 
     public List<Producto> findAll() {
@@ -36,6 +43,35 @@ public class ProductoService {
 
     public Producto save(Producto producto){
         return productoRepository.save(producto);
+    }
+
+    public Producto crear(ProductoRequestDTO dto) {
+        ModeloProducto modelo = modeloProductoRepository.findById(dto.getModeloProductoId()).orElse(null);
+        if (modelo == null) return null;
+
+        Producto producto = new Producto();
+        producto.setNombre(dto.getNombre());
+        producto.setPrecio(dto.getPrecio());
+        producto.setStock(dto.getStock());
+        producto.setActivo(dto.getStock() > 0);
+        producto.setCategoria(dto.getCategoria());
+        producto.setModeloProducto(modelo);
+
+        Producto guardado = productoRepository.save(producto);
+
+        if (dto.getImagenes() != null && !dto.getImagenes().isEmpty()) {
+            List<ImagenProducto> imagenes = new ArrayList<>();
+            for (String url : dto.getImagenes()) {
+                ImagenProducto img = new ImagenProducto();
+                img.setUrl(url);
+                img.setProducto(guardado);
+                imagenes.add(img);
+            }
+            guardado.setImagenes(imagenes);
+            guardado = productoRepository.save(guardado);
+        }
+
+        return guardado;
     }
 
     public Producto update(Long id, Producto datos) {
