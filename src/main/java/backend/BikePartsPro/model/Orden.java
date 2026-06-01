@@ -19,7 +19,7 @@ public class Orden {
     private LocalDateTime fecha;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(50)")
     private EstadoOrden estado;
 
     @JsonBackReference
