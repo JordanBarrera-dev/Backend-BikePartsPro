@@ -55,6 +55,7 @@ public class SecurityConfig {
                     ).permitAll()
 
                     .requestMatchers(HttpMethod.PUT, "/auth/promover/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/auth/activar/**").hasRole("ADMIN")
 
                     .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/clientes/**").hasAnyRole("ADMIN", "CLIENTE")
