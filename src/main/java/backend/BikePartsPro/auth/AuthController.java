@@ -6,11 +6,13 @@ import backend.BikePartsPro.model.Usuario;
 import backend.BikePartsPro.repository.UsuarioRepository;
 import backend.BikePartsPro.security.JwtUtil;
 import backend.BikePartsPro.service.EmailService;
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -55,9 +57,6 @@ public class AuthController {
                 Rol.CLIENTE
         );
 
-        Cliente cliente = new Cliente(request.getNombre(), request.getEmail());
-        usuario.setCliente(cliente);
-
         String codigo = String.format("%06d", new Random().nextInt(1000000));
         usuario.setTokenRegistro(passwordEncoder.encode(codigo));
         usuario.setTokenRegistroExpiracion(LocalDateTime.now().plusMinutes(15));
@@ -90,6 +89,8 @@ public class AuthController {
             return ResponseEntity.badRequest().body(Map.of("error", "Código incorrecto"));
         }
 
+        Cliente cliente = new Cliente(usuario.getNombre(), usuario.getEmail());
+        usuario.setCliente(cliente);
         usuario.setVerificado(true);
         usuario.setTokenRegistro(null);
         usuario.setTokenRegistroExpiracion(null);
@@ -100,21 +101,29 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        Usuario usuario = (Usuario) authentication.getPrincipal();
-        String token = jwtUtil.generateToken(usuario);
-        return ResponseEntity.ok(Map.of(
-                "token", token,
-                "email", usuario.getEmail(),
-                "rol", usuario.getRol(),
-                "nombre", jwtUtil.extractNombre(token),
-                "verificado", usuario.isVerificado()
-        ));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+            Usuario usuario = (Usuario) authentication.getPrincipal();
+            String token = jwtUtil.generateToken(usuario);
+            return ResponseEntity.ok(Map.of(
+                    "token", token,
+                    "email", usuario.getEmail(),
+                    "rol", usuario.getRol(),
+                    "nombre", jwtUtil.extractNombre(token),
+                    "verificado", usuario.isVerificado()
+            ));
+        } catch (DisabledException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("error", "Cuenta no verificada. Revisa tu email para activar tu cuenta."));
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Credenciales incorrectas"));
+        }
     }
 
     @PostMapping("/refresh")

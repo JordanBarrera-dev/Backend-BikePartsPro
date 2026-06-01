@@ -16,16 +16,12 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    // @Value lee el valor desde application.properties.
-    // Spring lo inyecta automáticamente al crear el bean.
     @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.expiration}")
     private long expiration;
 
-    // generateToken: recibe un UserDetails (el Usuario autenticado)
-    // y genera un JWT firmado con los datos del usuario.
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("rol", userDetails.getAuthorities().iterator().next().getAuthority());
@@ -53,21 +49,15 @@ public class JwtUtil {
         return nombre != null ? nombre.toString() : null;
     }
 
-    // isTokenValid: verifica dos cosas:
-    // 1. El email del token coincide con el usuario cargado.
-    // 2. El token no ha vencido.
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String email = extractEmail(token);
         return email.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
-    // isTokenExpired: compara la fecha de vencimiento con la fecha actual.
     private boolean isTokenExpired(String token) {
         return extractClaims(token).getExpiration().before(new Date());
     }
 
-    // extractClaims: parsea el token, verifica la firma y retorna el payload.
-    // Si la firma no es válida o el token fue alterado, JJWT lanza una excepción.
     private Claims extractClaims(String token) {
         return Jwts.parser()
                 .verifyWith(getSigningKey())
@@ -76,15 +66,11 @@ public class JwtUtil {
                 .getPayload();
     }
 
-    // getSigningKey: convierte la clave hexadecimal del properties
-    // en un objeto SecretKey que JJWT puede usar para firmar y verificar.
     private SecretKey getSigningKey() {
         byte[] keyBytes = hexToBytes(secret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // hexToBytes: convierte la representación hexadecimal de la clave
-    // a un arreglo de bytes. Necesario porque JWT trabaja con bytes, no strings.
     private byte[] hexToBytes(String hex) {
         int length = hex.length();
         byte[] bytes = new byte[length / 2];

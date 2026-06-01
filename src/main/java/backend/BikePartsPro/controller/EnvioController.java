@@ -3,6 +3,7 @@ package backend.BikePartsPro.controller;
 import backend.BikePartsPro.DTO.EnvioRequestDTO;
 import backend.BikePartsPro.model.Envio;
 import backend.BikePartsPro.service.EnvioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +33,12 @@ public class EnvioController {
     }
 
     @PostMapping
-    public ResponseEntity<Envio> crear(@RequestBody EnvioRequestDTO dto) {
+    public ResponseEntity<Envio> crear(@Valid @RequestBody EnvioRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(envioService.save(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Envio> actualizar(@PathVariable Long id, @RequestBody EnvioRequestDTO dto) {
+    public ResponseEntity<Envio> actualizar(@PathVariable Long id, @Valid @RequestBody EnvioRequestDTO dto) {
         Envio actualizado = envioService.update(id, dto);
         if (actualizado == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(actualizado);
