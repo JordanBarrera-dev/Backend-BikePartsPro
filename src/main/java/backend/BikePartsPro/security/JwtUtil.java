@@ -29,6 +29,10 @@ public class JwtUtil {
         if (userDetails instanceof Usuario usuario) {
             String[] partes = usuario.getNombre().trim().split("\\s+");
             claims.put("nombre", partes[0]);
+            claims.put("userId", usuario.getId());
+            if (usuario.getCliente() != null) {
+                claims.put("clienteId", usuario.getCliente().getId());
+            }
         }
 
         return Jwts.builder()
@@ -47,6 +51,16 @@ public class JwtUtil {
     public String extractNombre(String token) {
         Object nombre = extractClaims(token).get("nombre");
         return nombre != null ? nombre.toString() : null;
+    }
+
+    public Long extractUserId(String token) {
+        Object id = extractClaims(token).get("userId");
+        return id != null ? ((Number) id).longValue() : null;
+    }
+
+    public Long extractClienteId(String token) {
+        Object id = extractClaims(token).get("clienteId");
+        return id != null ? ((Number) id).longValue() : null;
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
