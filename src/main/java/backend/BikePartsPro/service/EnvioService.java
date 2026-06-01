@@ -4,9 +4,11 @@ import backend.BikePartsPro.DTO.EnvioRequestDTO;
 import backend.BikePartsPro.model.Ciudad;
 import backend.BikePartsPro.model.Cliente;
 import backend.BikePartsPro.model.Envio;
+import backend.BikePartsPro.model.Orden;
 import backend.BikePartsPro.repository.CiudadRepository;
 import backend.BikePartsPro.repository.ClienteRepository;
 import backend.BikePartsPro.repository.EnvioRepository;
+import backend.BikePartsPro.repository.OrdenRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,13 +21,16 @@ public class EnvioService {
     private final EnvioRepository envioRepository;
     private final CiudadRepository ciudadRepository;
     private final ClienteRepository clienteRepository;
+    private final OrdenRepository ordenRepository;
 
     public EnvioService(EnvioRepository envioRepository,
                         CiudadRepository ciudadRepository,
-                        ClienteRepository clienteRepository) {
+                        ClienteRepository clienteRepository,
+                        OrdenRepository ordenRepository) {
         this.envioRepository = envioRepository;
         this.ciudadRepository = ciudadRepository;
         this.clienteRepository = clienteRepository;
+        this.ordenRepository = ordenRepository;
     }
 
     public List<Envio> findAll() {
@@ -45,6 +50,10 @@ public class EnvioService {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Cliente no encontrado: " + dto.getClienteId()));
 
+        Orden orden = ordenRepository.findById(dto.getOrdenId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Orden no encontrada: " + dto.getOrdenId()));
+
         Envio envio = new Envio();
         envio.setNombreRecibe(dto.getNombreRecibe());
         envio.setDireccion(dto.getDireccion());
@@ -53,7 +62,12 @@ public class EnvioService {
         envio.setCiudad(ciudad);
         envio.setCliente(cliente);
 
-        return envioRepository.save(envio);
+        Envio envioGuardado = envioRepository.save(envio);
+
+        orden.setEnvio(envioGuardado);
+        ordenRepository.save(orden);
+
+        return envioGuardado;
     }
 
     public Envio update(Long id, EnvioRequestDTO dto) {
