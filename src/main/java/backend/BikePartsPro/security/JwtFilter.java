@@ -60,8 +60,11 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         } catch (JwtException e) {
-            // Token inválido, expirado o firmado con clave incorrecta.
-            // No autenticar — Spring Security manejará la respuesta (401).
+            response.sendError(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED, "Token inválido o expirado");
+            return;
+        } catch (Exception e) {
+            response.sendError(jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error interno de autenticación");
+            return;
         }
 
         filterChain.doFilter(request, response);
