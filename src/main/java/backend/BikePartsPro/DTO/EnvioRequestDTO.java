@@ -21,6 +21,9 @@ public class EnvioRequestDTO {
     @NotNull(message = "El cliente es obligatorio")
     private Long clienteId;
 
+    @NotNull(message = "La orden es obligatoria")
+    private Long ordenId;
+
     public EnvioRequestDTO() {}
 
     public String getNombreRecibe() { return nombreRecibe; }
@@ -40,4 +43,7 @@ public class EnvioRequestDTO {
 
     public Long getClienteId() { return clienteId; }
     public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
+
+    public Long getOrdenId() { return ordenId; }
+    public void setOrdenId(Long ordenId) { this.ordenId = ordenId; }
 }
