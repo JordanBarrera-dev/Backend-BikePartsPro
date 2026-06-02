@@ -61,11 +61,13 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/marcas/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/marcas/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/modelos-producto/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/modelos-producto").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/modelos-producto/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/modelos-producto/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/clientes/**").hasAnyRole("ADMIN", "CLIENTE")
                     .requestMatchers(HttpMethod.GET, "/ordenes/**").hasAnyRole("ADMIN", "CLIENTE")
 
+                    .requestMatchers(HttpMethod.POST, "/productos").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/productos/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/productos/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/productos/**").hasRole("ADMIN")
@@ -73,6 +75,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PUT, "/clientes/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
 
+                    .requestMatchers(HttpMethod.POST, "/ordenes/checkout").hasAnyRole("ADMIN", "CLIENTE")
                     .requestMatchers(HttpMethod.POST, "/ordenes/**").hasAnyRole("ADMIN", "CLIENTE")
                     .requestMatchers(HttpMethod.PUT, "/ordenes/**").hasAnyRole("ADMIN", "CLIENTE")
                     .requestMatchers(HttpMethod.DELETE, "/ordenes/**").hasRole("ADMIN")
